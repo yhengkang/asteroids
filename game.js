@@ -9,8 +9,8 @@
                                     Asteroids.Ship.RADIUS, Asteroids.Ship.COLOR);
   };
 
-  Game.DIM_X = 500;
-  Game.DIM_Y = 500;
+  Game.DIM_X = 1000;
+  Game.DIM_Y = 800;
   Game.FPS = 30;
 
   Game.prototype.addAsteroids = function(numAsteroids) {
@@ -46,7 +46,7 @@
     this.draw();
     this.move();
     this.checkCollisions();
-    this.checkBoundary();
+    // this.checkBoundary();
   }
 
   Game.prototype.start = function () {
@@ -67,7 +67,18 @@
       if (asteroid.isCollidedWith(that.ship)){
         that.stopOnCollision();
       }
+      that.bullets.forEach(function (bullet) {
+        if (bullet.isCollidedWith(asteroid)){
+          that.removeAsteroid(asteroid);
+          that.removeBullet(bullet);
+        }
+      });
+
     });
+  }
+
+  Game.prototype.isOutOfBounds = function() {
+    
   }
 
   Game.prototype.checkBoundary = function() {
@@ -96,6 +107,14 @@
     if(addBullet !== undefined) {
       this.bullets.push(addBullet);
     }
+  }
+
+  Game.prototype.removeAsteroid = function(asteroid) {
+    this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
+  }
+
+  Game.prototype.removeBullet = function(bullet) {
+    this.bullets.splice(this.bullets.indexOf(bullet), 1);
   }
 
 })(this);

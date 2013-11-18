@@ -7,4 +7,8 @@
 
   Bullet.inherits(Asteroids.MovingObject);
 
+  Bullet.prototype.hitsAsteroids = function() {
+  	
+  }
+
 })(this);

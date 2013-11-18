@@ -79,12 +79,20 @@
 
   Game.prototype.checkBoundary = function() {
     var that = this;
-    this.asteroids.forEach(function (asteroid, idx) {
-      if ((asteroid.posX > Game.DIM_X || asteroid.posX < 0 )||
-          (asteroid.posY > Game.DIM_Y || asteroid.posY < 0 )) {
+    this.asteroids.forEach(function (asteroid) {
+      if ( asteroid.outOfBounds() ) {
         asteroid.pacman();
       }
     });
+    this.bullets.forEach(function (bullet){
+      if ( bullet.outOfBounds() ) {
+        that.removeBullet(bullet);
+        // bullet.pacman();
+      }
+    })
+    if ( this.ship.outOfBounds() ) {
+      that.ship.pacman();
+    }
   }
 
   Game.prototype.bindKeyHandlers = function() {
@@ -105,6 +113,7 @@
   }
 
   Game.prototype.removeAsteroid = function(asteroid) {
+    this.addAsteroids(1);    
     this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
   }
 

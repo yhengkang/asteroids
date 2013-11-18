@@ -53,4 +53,9 @@
     this.posY = Math.abs(Asteroids.Game.DIM_Y - oldY);
   }
 
+  MovingObject.prototype.outOfBounds = function() {
+    return ((this.posX > Asteroids.Game.DIM_X || this.posX < 0 )||
+           (this.posY > Asteroids.Game.DIM_Y || this.posY < 0 )); 
+  }
+
 })(this);

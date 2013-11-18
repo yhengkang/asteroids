@@ -46,7 +46,7 @@
     this.draw();
     this.move();
     this.checkCollisions();
-    // this.checkBoundary();
+    this.checkBoundary();
   }
 
   Game.prototype.start = function () {
@@ -77,17 +77,12 @@
     });
   }
 
-  Game.prototype.isOutOfBounds = function() {
-    
-  }
-
   Game.prototype.checkBoundary = function() {
     var that = this;
     this.asteroids.forEach(function (asteroid, idx) {
       if ((asteroid.posX > Game.DIM_X || asteroid.posX < 0 )||
           (asteroid.posY > Game.DIM_Y || asteroid.posY < 0 )) {
-        that.asteroids.splice(idx, 1);
-        that.addAsteroids(1);
+        asteroid.pacman();
       }
     });
   }

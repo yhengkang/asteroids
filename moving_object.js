@@ -46,4 +46,11 @@
     return false;
   }
 
+  MovingObject.prototype.pacman = function() {
+    var oldX = this.posX;
+    var oldY = this.posY;
+    this.posX = Math.abs(Asteroids.Game.DIM_X - oldX);
+    this.posY = Math.abs(Asteroids.Game.DIM_Y - oldY);
+  }
+
 })(this);

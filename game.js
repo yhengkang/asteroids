@@ -12,6 +12,7 @@
   Game.DIM_X = 1000;
   Game.DIM_Y = 800;
   Game.FPS = 30;
+  Game.MAX_ASTEROIDS = 20;
 
   Game.prototype.addAsteroids = function(numAsteroids) {
     for(var i = 0; i < numAsteroids; i++) {
@@ -47,10 +48,11 @@
     this.move();
     this.checkCollisions();
     this.checkBoundary();
+    this.checkAsteroidsNumbers();
   }
 
   Game.prototype.start = function () {
-    this.addAsteroids(20);
+    this.addAsteroids(Game.MAX_ASTEROIDS);
     this.bindKeyHandlers();
     handle = setInterval(this.step.bind(this), Game.FPS);
   }
@@ -96,6 +98,12 @@
     })
     if ( this.ship.outOfBounds() ) {
       that.ship.pacman();
+    }
+  }
+
+  Game.prototype.checkAsteroidsNumbers = function() {
+    if(this.asteroids.length < Game.MAX_ASTEROIDS) {
+      this.addAsteroids(Game.MAX_ASTEROIDS - this.asteroids.length);
     }
   }
 

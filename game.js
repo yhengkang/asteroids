@@ -50,7 +50,7 @@
   }
 
   Game.prototype.start = function () {
-    this.addAsteroids(10);
+    this.addAsteroids(20);
     this.bindKeyHandlers();
     handle = setInterval(this.step.bind(this), Game.FPS);
   }
@@ -58,7 +58,7 @@
   Game.prototype.stopOnCollision = function() {
     clearInterval(handle);
     handle = 0;
-    return alert("You suck!");
+    return alert("Game Over!");
   }
 
   Game.prototype.checkCollisions = function() {
@@ -69,7 +69,11 @@
       }
       that.bullets.forEach(function (bullet) {
         if (bullet.isCollidedWith(asteroid)){
+          if (asteroid.radius >= 30) {
+            that.asteroids = that.asteroids.concat(asteroid.split());
+          }
           that.removeAsteroid(asteroid);
+
           that.removeBullet(bullet);
         }
       });
@@ -98,9 +102,9 @@
   Game.prototype.bindKeyHandlers = function() {
     var that = this;
     key('w', function(){ that.ship.power(0,-5); });
-    key('a', function(){ that.ship.power(-5,0); });
-    key('s', function(){ that.ship.power(0, 5); });
-    key('d', function(){ that.ship.power(5, 0); });
+    key('a', function(){ that.ship.power(-3,0); });
+    key('s', function(){ that.ship.power(0, 3); });
+    key('d', function(){ that.ship.power(3, 0); });
     key('j', function(){ that.fireBullet(); });
   }
 
@@ -113,7 +117,10 @@
   }
 
   Game.prototype.removeAsteroid = function(asteroid) {
-    this.addAsteroids(1);    
+    // only add an asteroid if a small one is destroyed
+    if (asteroid.radius < 10) {
+      this.addAsteroids(1);
+    }
     this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
   }
 

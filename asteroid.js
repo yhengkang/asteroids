@@ -7,10 +7,10 @@
 
   Asteroid.inherits(Asteroids.MovingObject);
 
-  Asteroid.AVERAGE_RADIUS = 25;
+  Asteroid.MAX_RADIUS = 40;
   Asteroid.MIN_RADIUS = 10;
   Asteroid.COLOR = "black";
-  Asteroid.AVERAGE_SPEED = 10;
+  Asteroid.MAX_SPEED = 10;
   Asteroid.MIN_SPEED = 10;
 
   Asteroid.randomAsteroid = function(dimX, dimY){
@@ -18,20 +18,20 @@
     return new Asteroid(
       randomEdgePosition(dimX, dimY),
       randomVel(),
-      randomSize(),
+      randomSize(Asteroid.MAX_RADIUS),
       Asteroid.COLOR 
     );
   };
 
   var randomVel = function() {
-    return [ ((Math.random() - Math.random()) * Asteroid.SPEED),
-             ((Math.random() - Math.random()) * Asteroid.SPEED) ];
+    return [ ((Math.random() - Math.random()) * Asteroid.MAX_SPEED),
+             ((Math.random() - Math.random()) * Asteroid.MAX_SPEED) ];
   }
 
-  var randomSize = function() {
-    var radius = Math.random()*Asteroid.AVERAGE_RADIUS;
+  var randomSize = function(maxSize) {
+    var radius = Math.random()*maxSize;
     while( radius < Asteroid.MIN_RADIUS ){
-      radius = Math.random()*Asteroid.AVERAGE_RADIUS;
+      radius = Math.random()*maxSize;
     }
     return radius;
   }
@@ -47,6 +47,26 @@
     } else {
       return [dimX*Math.random(), dimY-1];
     }
+  }
+
+  Asteroid.prototype.split = function() {
+    var originX = this.posX;
+    var originY = this.posY;
+    var originSize = this.radius;
+    return [
+      new Asteroid(
+        [originX, originY],
+        randomVel(),
+        randomSize(Math.floor(originSize/1.5)),
+        Asteroid.COLOR
+      ),
+      new Asteroid(
+        [originX, originY],
+        randomVel(),
+        randomSize(Math.floor(originSize/1.5)),
+        Asteroid.COLOR
+      )
+    ];
   }
 
 })(this);

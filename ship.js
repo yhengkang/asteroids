@@ -10,7 +10,7 @@
 
   Ship.RADIUS = 5;
   Ship.COLOR = "red";
-  Ship.BULLETSPEED = 50;
+  Ship.BULLETSPEED = 20;
 
   Ship.prototype.power = function(dx, dy) {
     this.velX += dx;

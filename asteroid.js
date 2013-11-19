@@ -57,13 +57,13 @@
       new Asteroid(
         [originX, originY],
         randomVel(),
-        randomSize(Math.floor(originSize/1.5)),
+        randomSize(Math.floor(originSize/1.3)),
         Asteroid.COLOR
       ),
       new Asteroid(
         [originX, originY],
         randomVel(),
-        randomSize(Math.floor(originSize/1.5)),
+        randomSize(Math.floor(originSize/1.3)),
         Asteroid.COLOR
       )
     ];

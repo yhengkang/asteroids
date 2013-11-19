@@ -16,12 +16,9 @@
         var ctx = canvas.getContext("2d");
         var body = document.getElementsByTagName("body")[0];
         body.appendChild(canvas);
-        // debugger;
-        new Asteroids.Game(ctx).start();
- //        var body = document.getElementsByTagName("body")[0];
- //        body.appendChild(canvas);
- //
- //        new Asteroids.Game(Asteroids.Game.DIM_X, Asteroids.Game.DIM_Y, 10).start(canvas);
+        var game = new Asteroids.Game(ctx);
+        // new Asteroids.Game(ctx).start();
+        game.start();
       </script>
     </body>
 

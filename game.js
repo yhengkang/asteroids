@@ -7,9 +7,10 @@
     this.bullets = [];
     this.ship = new Asteroids.Ship([Game.DIM_X/2,Game.DIM_Y/2], [0,0],
                                     Asteroids.Ship.RADIUS, Asteroids.Ship.COLOR);
+    this.score = 0;
   };
 
-  Game.DIM_X = 1000;
+  Game.DIM_X = 1200;
   Game.DIM_Y = 800;
   Game.FPS = 30;
   Game.MAX_ASTEROIDS = 20;
@@ -30,6 +31,7 @@
     this.bullets.forEach( function(bullet) {
       bullet.draw(that.ctx);
     });
+
   }
 
   Game.prototype.move = function() {
@@ -59,8 +61,7 @@
 
   Game.prototype.stopOnCollision = function() {
     clearInterval(handle);
-    handle = 0;
-    return alert("Game Over!");
+    return alert("Game Over! Your score was " + Math.floor(this.score))
   }
 
   Game.prototype.checkCollisions = function() {
@@ -125,10 +126,7 @@
   }
 
   Game.prototype.removeAsteroid = function(asteroid) {
-    // only add an asteroid if a small one is destroyed
-    if (asteroid.radius < 10) {
-      this.addAsteroids(1);
-    }
+    this.score += asteroid.radius;
     this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
   }
 

@@ -7,10 +7,10 @@
 
   Asteroid.inherits(Asteroids.MovingObject);
 
-  Asteroid.MAX_RADIUS = 40;
-  Asteroid.MIN_RADIUS = 10;
+  Asteroid.MAX_RADIUS = 50;
+  Asteroid.MIN_RADIUS = 20;
   Asteroid.COLOR = "black";
-  Asteroid.MAX_SPEED = 10;
+  Asteroid.MAX_SPEED = 15;
   Asteroid.MIN_SPEED = 10;
 
   Asteroid.randomAsteroid = function(dimX, dimY){
@@ -29,10 +29,9 @@
   }
 
   var randomSize = function(maxSize) {
-    var radius = Math.random()*maxSize;
-    while( radius < Asteroid.MIN_RADIUS ){
-      radius = Math.random()*maxSize;
-    }
+    do {
+      var radius = Math.random()*maxSize;
+    } while (radius < Asteroid.MIN_RADIUS)
     return radius;
   }
 
@@ -47,6 +46,11 @@
     } else {
       return [dimX*Math.random(), dimY-1];
     }
+    // doesnt have to be exact edge, just has to be a little bit off edge
+    // [dx, y], [-dx, y]... [x, dy], [x, -dy]....
+    var randomX = Math.random()*Asteroids.Game.DIM_X;
+    var randomY = Math.random()*Asteroids.Game.DIM_Y;
+    
   }
 
   Asteroid.prototype.split = function() {
@@ -67,6 +71,7 @@
         Asteroid.COLOR
       )
     ];
+
   }
 
 })(this);

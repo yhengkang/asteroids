@@ -13,7 +13,7 @@
   Game.DIM_X = 1200;
   Game.DIM_Y = 800;
   Game.FPS = 30;
-  Game.MAX_ASTEROIDS = 1;
+  Game.MAX_ASTEROIDS = 15;
 
   Game.prototype.addAsteroids = function(numAsteroids) {
     for(var i = 0; i < numAsteroids; i++) {
@@ -107,10 +107,10 @@
   Game.prototype.bindKeyHandlers = function() {
     var that = this;
 
-    key('w', function(){ that.ship.foward(2); });
-    key('a', function(){ that.ship.rotate(-5); });
-    key('d', function(){ that.ship.rotate(5); });
-    key('s', function(){ that.ship.foward(-1); });
+    key('w', function(){ that.ship.foward(5); });
+    key('a', function(){ that.ship.rotate(-15); });
+    key('d', function(){ that.ship.rotate(15); });
+    key('s', function(){ that.ship.foward(-2); });
     key('j', function(){ that.fireBullet(); });
   }
 

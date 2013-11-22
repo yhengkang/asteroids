@@ -12,8 +12,7 @@
   Asteroid.MAX_RADIUS = 60;
   Asteroid.MIN_RADIUS = 30;
   Asteroid.COLOR = "black";
-  Asteroid.MAX_SPEED = 15;
-  Asteroid.MIN_SPEED = 10;
+  Asteroid.MAX_SPEED = 12;
 
   Asteroid.randomAsteroid = function(dimX, dimY){
     var that = this;

@@ -26,19 +26,17 @@
   Ship.prototype.foward = function(speed) {
     var radians = this.orientation*Math.PI/180;
     var dx = speed*Math.sin(radians);
-    var dy = speed*Math.cos(radians);
-    this.velX +=  dx;
-    this.velY += -dy;
+    var dy = -speed*Math.cos(radians);
+    this.velX += dx;
+    this.velY += dy;
   }
 
   Ship.prototype.fireBullet = function() {
-    var speed = Math.sqrt( Math.pow(this.velX, 2) + Math.pow(this.velY, 2) );
-    var bullet_velX = (this.velX / speed) * Ship.BULLETSPEED;
-    var bullet_velY = (this.velY / speed) * Ship.BULLETSPEED;
+    var radians = this.orientation*Math.PI/180;
+    var bullet_velX = Ship.BULLETSPEED*Math.sin(radians) + this.velX;
+    var bullet_velY = -Ship.BULLETSPEED*Math.cos(radians) + this.velY;
     var bullet_vel = [ bullet_velX, bullet_velY ];
-    if(this.velX !== 0 || this.velY !== 0) {
-      return new Asteroids.Bullet([this.posX, this.posY], bullet_vel, 2, "red");
-    }
+    return new Asteroids.Bullet([this.posX, this.posY], bullet_vel, 2, "red"); 
   }
 
   Ship.prototype.draw = function(ctx) {

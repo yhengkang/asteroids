@@ -3,6 +3,8 @@
 
   var Asteroid = Asteroids.Asteroid = function(pos, vel, radius, color) {
     Asteroids.MovingObject.call(this, pos, vel, radius, color);
+
+    this.randomArr = randomGen();
   };
 
   Asteroid.inherits(Asteroids.MovingObject);
@@ -72,6 +74,55 @@
       )
     ];
 
+  }
+
+  Asteroid.prototype.draw = function(ctx) {
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    var randomArr = this.randomArr;
+    ctx.moveTo(this.posX, this.posY);
+    //bottom middle to bottom right
+    ctx.lineTo(this.posX, this.posY + this.radius*randomArr[7]); //middle
+    ctx.lineTo(this.posX + this.radius/2*randomArr[0], this.posY + this.radius);
+    ctx.lineTo(this.posX + this.radius/1.4, this.posY + this.radius/1.4); //corner
+    //bottom right to top right
+    ctx.lineTo(this.posX + this.radius, this.posY + this.radius/2*randomArr[1]);
+    ctx.lineTo(this.posX + this.radius*randomArr[8], this.posY); //middle
+    ctx.lineTo(this.posX + this.radius, this.posY - this.radius/2*randomArr[2]);
+    ctx.lineTo(this.posX + this.radius/1.4, this.posY - this.radius/1.4); //corner  
+    //top right to top left
+    ctx.lineTo(this.posX + this.radius/2*randomArr[3], this.posY - this.radius);
+    ctx.lineTo(this.posX, this.posY - this.radius*randomArr[9]); //middle
+    ctx.lineTo(this.posX - this.radius/2*randomArr[4], this.posY - this.radius);
+    ctx.lineTo(this.posX - this.radius/1.4, this.posY - this.radius/1.4); //corner
+    //top left to bottom left
+    ctx.lineTo(this.posX - this.radius, this.posY - this.radius/2*randomArr[5]);
+    ctx.lineTo(this.posX - this.radius*randomArr[10], this.posY); //middle
+    ctx.lineTo(this.posX - this.radius, this.posY + this.radius/2*randomArr[6]);
+    ctx.lineTo(this.posX - this.radius/1.4, this.posY + this.radius/1.4); //corner
+    //bottom left to bottom middle
+    ctx.lineTo(this.posX - this.radius/2, this.posY + this.radius);
+    ctx.lineTo(this.posX, this.posY + this.radius*randomArr[7]); //original middle
+
+    ctx.closePath();
+    ctx.fill();
+  }
+  //generates array of 12 integers to scale by range between 1.2 to 0.8
+  var randomGen = function() {
+    var randomArr = [];
+    for (var i = 0; i < 12; i++) {
+      var diceRoll = Math.random();
+      if (diceRoll > 0.7) {
+        randomArr.push(1.2);
+      } else if (diceRoll >= 0.5){
+        randomArr.push(1.1);
+      } else if (diceRoll >= 0.3) {
+        randomArr.push(0.9);
+      } else {
+        randomArr.push(0.8);
+      }
+    }
+    return randomArr;
   }
 
 })(this);

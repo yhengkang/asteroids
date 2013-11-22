@@ -72,9 +72,9 @@
       }
       that.bullets.forEach(function (bullet) {
         if (bullet.isCollidedWith(asteroid)){
-          // if (asteroid.radius >= 30) {
-          //   that.asteroids = that.asteroids.concat(asteroid.split());
-          // }
+          if (asteroid.radius >= 30) {
+            that.asteroids = that.asteroids.concat(asteroid.split());
+          }
           that.removeAsteroid(asteroid);
 
           that.removeBullet(bullet);

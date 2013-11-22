@@ -9,8 +9,8 @@
 
   Asteroid.inherits(Asteroids.MovingObject);
 
-  Asteroid.MAX_RADIUS = 50;
-  Asteroid.MIN_RADIUS = 20;
+  Asteroid.MAX_RADIUS = 60;
+  Asteroid.MIN_RADIUS = 30;
   Asteroid.COLOR = "black";
   Asteroid.MAX_SPEED = 15;
   Asteroid.MIN_SPEED = 10;
@@ -56,24 +56,41 @@
   }
 
   Asteroid.prototype.split = function() {
-    var originX = this.posX;
-    var originY = this.posY;
-    var originSize = this.radius;
-    return [
-      new Asteroid(
-        [originX, originY],
-        randomVel(),
-        randomSize(Math.floor(originSize/1.3)),
-        Asteroid.COLOR
-      ),
-      new Asteroid(
-        [originX, originY],
-        randomVel(),
-        randomSize(Math.floor(originSize/1.3)),
-        Asteroid.COLOR
-      )
-    ];
-
+    // var originX = this.posX;
+    // var originY = this.posY;
+    // var originSize = this.radius;
+    // return [
+    //   new Asteroid(
+    //     [originX, originY],
+    //     randomVel(),
+    //     randomSize(Math.floor(originSize/1.3)),
+    //     Asteroid.COLOR
+    //   ),
+    //   new Asteroid(
+    //     [originX, originY],
+    //     randomVel(),
+    //     randomSize(Math.floor(originSize/1.3)),
+    //     Asteroid.COLOR
+    //   )
+    // ];
+    var asteroidArr = [];
+    var numAsteroid = 0;
+    if (this.radius >= 50) {
+      numAsteroid = 3;
+    } else if (this.radius >= 40) {
+      numAsteroid = 2;
+    }
+    for (var i = 0; i < numAsteroid; i++){
+      asteroidArr.push(
+         new Asteroid(
+          [this.posX, this.posY],
+          randomVel(),
+          randomSize(Math.floor(this.radius/1.3)),
+          Asteroid.COLOR
+        )
+      );
+    }
+    return asteroidArr;
   }
 
   Asteroid.prototype.draw = function(ctx) {

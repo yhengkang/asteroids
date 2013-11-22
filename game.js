@@ -13,7 +13,7 @@
   Game.DIM_X = 1200;
   Game.DIM_Y = 800;
   Game.FPS = 30;
-  Game.MAX_ASTEROIDS = 20;
+  Game.MAX_ASTEROIDS = 1;
 
   Game.prototype.addAsteroids = function(numAsteroids) {
     for(var i = 0; i < numAsteroids; i++) {
@@ -23,7 +23,6 @@
 
   Game.prototype.draw = function() {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    this.ship.draw(this.ctx);
     var that = this;
     this.asteroids.forEach( function(asteroid) {
       asteroid.draw(that.ctx);
@@ -31,7 +30,7 @@
     this.bullets.forEach( function(bullet) {
       bullet.draw(that.ctx);
     });
-
+    this.ship.draw(this.ctx);
   }
 
   Game.prototype.move = function() {
@@ -112,6 +111,10 @@
     key('s', function(){ that.ship.power(0, 3); });
     key('d', function(){ that.ship.power(3, 0); });
     key('j', function(){ that.fireBullet(); });
+
+    key('z', function(){ that.ship.rotate(-5); });
+    key('c', function(){ that.ship.rotate(5); });
+    key('c', function(){ that.ship.foward(5); });
   }
 
   Game.prototype.fireBullet = function() {

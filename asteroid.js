@@ -56,28 +56,11 @@
   }
 
   Asteroid.prototype.split = function() {
-    // var originX = this.posX;
-    // var originY = this.posY;
-    // var originSize = this.radius;
-    // return [
-    //   new Asteroid(
-    //     [originX, originY],
-    //     randomVel(),
-    //     randomSize(Math.floor(originSize/1.3)),
-    //     Asteroid.COLOR
-    //   ),
-    //   new Asteroid(
-    //     [originX, originY],
-    //     randomVel(),
-    //     randomSize(Math.floor(originSize/1.3)),
-    //     Asteroid.COLOR
-    //   )
-    // ];
     var asteroidArr = [];
     var numAsteroid = 0;
-    if (this.radius >= 50) {
+    if (this.radius > 50) {
       numAsteroid = 3;
-    } else if (this.radius >= 40) {
+    } else if (this.radius > 40) {
       numAsteroid = 2;
     }
     for (var i = 0; i < numAsteroid; i++){
@@ -98,10 +81,11 @@
     ctx.beginPath();
     var randomArr = this.randomArr;
     ctx.moveTo(this.posX, this.posY);
+
     //bottom middle to bottom right
     ctx.lineTo(this.posX, this.posY + this.radius*randomArr[7]); //middle
     ctx.lineTo(this.posX + this.radius/2*randomArr[0], this.posY + this.radius);
-    ctx.lineTo(this.posX + this.radius/1.4, this.posY + this.radius/1.4); //corner
+    ctx.lineTo(this.posX + this.radius/1.4*randomArr[0], this.posY + this.radius/1.4*randomArr[4]); //corner
     //bottom right to top right
     ctx.lineTo(this.posX + this.radius, this.posY + this.radius/2*randomArr[1]);
     ctx.lineTo(this.posX + this.radius*randomArr[8], this.posY); //middle
@@ -111,12 +95,12 @@
     ctx.lineTo(this.posX + this.radius/2*randomArr[3], this.posY - this.radius);
     ctx.lineTo(this.posX, this.posY - this.radius*randomArr[9]); //middle
     ctx.lineTo(this.posX - this.radius/2*randomArr[4], this.posY - this.radius);
-    ctx.lineTo(this.posX - this.radius/1.4, this.posY - this.radius/1.4); //corner
+    ctx.lineTo(this.posX - this.radius/1.4*randomArr[3], this.posY - this.radius/1.4*randomArr[2]); //corner
     //top left to bottom left
     ctx.lineTo(this.posX - this.radius, this.posY - this.radius/2*randomArr[5]);
     ctx.lineTo(this.posX - this.radius*randomArr[10], this.posY); //middle
     ctx.lineTo(this.posX - this.radius, this.posY + this.radius/2*randomArr[6]);
-    ctx.lineTo(this.posX - this.radius/1.4, this.posY + this.radius/1.4); //corner
+    ctx.lineTo(this.posX - this.radius/1.4*randomArr[5], this.posY + this.radius/1.4*randomArr[5]); //corner
     //bottom left to bottom middle
     ctx.lineTo(this.posX - this.radius/2, this.posY + this.radius);
     ctx.lineTo(this.posX, this.posY + this.radius*randomArr[7]); //original middle

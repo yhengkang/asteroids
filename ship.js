@@ -4,17 +4,33 @@
 
   var Ship = Asteroids.Ship = function(pos, vel, radius, color) {
     Asteroids.MovingObject.call(this, pos, vel, radius, color);
+    // this.rotation = 
+    this.orientation = 0;
   };
 
   Ship.inherits(Asteroids.MovingObject);
 
-  Ship.RADIUS = 5;
+  Ship.RADIUS = 7;
   Ship.COLOR = "red";
   Ship.BULLETSPEED = 20;
 
   Ship.prototype.power = function(dx, dy) {
     this.velX += dx;
     this.velY += dy;
+  }
+
+  Ship.prototype.rotate = function(angle) {
+    // var rotation = 5*direction
+    // ctx.save();
+    // ctx.translate(this.posX, this.posY);
+    // ctx.rotate(rotation*Math.PI/180);
+    // this.draw(ctx);
+    // ctx.restore();
+    this.orientation += angle;
+  }
+
+  Ship.prototype.foward = function(speed) {
+
   }
 
   Ship.prototype.fireBullet = function() {
@@ -26,4 +42,28 @@
       return new Asteroids.Bullet([this.posX, this.posY], bullet_vel, 2, "red");
     }
   }
+
+  Ship.prototype.draw = function(ctx) {
+    ctx.beginPath();
+    ctx.fillStyle = Ship.COLOR
+    // ctx.moveTo(this.posX, this.posY);
+
+    // ctx.lineTo(this.posX, this.posY - 14);
+    // ctx.lineTo(this.posX + 7, this.posY + 7);
+    // ctx.lineTo(this.posX - 7, this.posY + 7);
+    // ctx.lineTo(this.posX, this.posY - 14);
+    ctx.save();
+    ctx.translate(this.posX, this.posY);
+    ctx.rotate(this.orientation*Math.PI/180)
+    ctx.moveTo(0,0);
+    ctx.lineTo(0, -14);
+    ctx.lineTo(7, 7);
+    ctx.lineTo(-7, 7);
+    ctx.lineTo(0, -14);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+  }
+
 })(this);

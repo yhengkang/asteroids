@@ -106,15 +106,16 @@
 
   Game.prototype.bindKeyHandlers = function() {
     var that = this;
-    key('w', function(){ that.ship.power(0,-5); });
-    key('a', function(){ that.ship.power(-3,0); });
-    key('s', function(){ that.ship.power(0, 3); });
-    key('d', function(){ that.ship.power(3, 0); });
+    // key('w', function(){ that.ship.power(0,-5); });
+    // key('a', function(){ that.ship.power(-3,0); });
+    // key('s', function(){ that.ship.power(0, 3); });
+    // key('d', function(){ that.ship.power(3, 0); });
     key('j', function(){ that.fireBullet(); });
 
-    key('z', function(){ that.ship.rotate(-5); });
-    key('c', function(){ that.ship.rotate(5); });
-    key('c', function(){ that.ship.foward(5); });
+    key('w', function(){ that.ship.foward(2); });
+    key('a', function(){ that.ship.rotate(-5); });
+    key('d', function(){ that.ship.rotate(5); });
+    key('s', function(){ that.ship.foward(-1); });
   }
 
   Game.prototype.fireBullet = function() {

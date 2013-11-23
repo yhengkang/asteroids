@@ -5,6 +5,8 @@
     Asteroids.MovingObject.call(this, pos, vel, radius, color);
 
     this.randomArr = randomGen();
+    this.orientation = 0;
+    this.rotationSpeed = (Math.random() - Math.random());
   };
 
   Asteroid.inherits(Asteroids.MovingObject);
@@ -79,38 +81,44 @@
     ctx.fillStyle = "black";
     ctx.beginPath();
     var randomArr = this.randomArr;
-    ctx.moveTo(this.posX, this.posY);
-
+    this.orientation += this.rotationSpeed;
+    
+    ctx.save();
+    
+    ctx.translate(this.posX, this.posY);
+    ctx.rotate(this.orientation*Math.PI/180);
+    ctx.moveTo(0,0);
     //bottom middle to bottom right
-    ctx.lineTo(this.posX, this.posY + this.radius*randomArr[7]); //middle
-    ctx.lineTo(this.posX + this.radius/2*randomArr[0], this.posY + this.radius);
-    ctx.lineTo(this.posX + this.radius/1.4*randomArr[0], this.posY + this.radius/1.4*randomArr[4]); //corner
+    ctx.lineTo(0, this.radius*randomArr[0])
+    ctx.lineTo(this.radius/2*randomArr[1], this.radius);
+    ctx.lineTo(this.radius/1.4*randomArr[2], this.radius/1.4*randomArr[3]); //corner
     //bottom right to top right
-    ctx.lineTo(this.posX + this.radius, this.posY + this.radius/2*randomArr[1]);
-    ctx.lineTo(this.posX + this.radius*randomArr[8], this.posY); //middle
-    ctx.lineTo(this.posX + this.radius, this.posY - this.radius/2*randomArr[2]);
-    ctx.lineTo(this.posX + this.radius/1.4, this.posY - this.radius/1.4); //corner  
+    ctx.lineTo(this.radius, this.radius/2*randomArr[4]);
+    ctx.lineTo(this.radius*randomArr[5], 0); //middle
+    ctx.lineTo(this.radius, -this.radius/2*randomArr[6]);
+    ctx.lineTo(this.radius/1.4*randomArr[7], -this.radius/1.4*randomArr[8]); //corner  
     //top right to top left
-    ctx.lineTo(this.posX + this.radius/2*randomArr[3], this.posY - this.radius);
-    ctx.lineTo(this.posX, this.posY - this.radius*randomArr[9]); //middle
-    ctx.lineTo(this.posX - this.radius/2*randomArr[4], this.posY - this.radius);
-    ctx.lineTo(this.posX - this.radius/1.4*randomArr[3], this.posY - this.radius/1.4*randomArr[2]); //corner
+    ctx.lineTo(this.radius/2*randomArr[9], -this.radius);
+    ctx.lineTo(0,- this.radius*randomArr[10]); //middle
+    ctx.lineTo(-this.radius/2*randomArr[11], -this.radius);
+    ctx.lineTo(-this.radius/1.4*randomArr[12], -this.radius/1.4*randomArr[13]); //corner
     //top left to bottom left
-    ctx.lineTo(this.posX - this.radius, this.posY - this.radius/2*randomArr[5]);
-    ctx.lineTo(this.posX - this.radius*randomArr[10], this.posY); //middle
-    ctx.lineTo(this.posX - this.radius, this.posY + this.radius/2*randomArr[6]);
-    ctx.lineTo(this.posX - this.radius/1.4*randomArr[5], this.posY + this.radius/1.4*randomArr[5]); //corner
+    ctx.lineTo(-this.radius, -this.radius/2*randomArr[14]);
+    ctx.lineTo(-this.radius*randomArr[15], 0); //middle
+    ctx.lineTo(-this.radius, this.radius/2*randomArr[6]);
+    ctx.lineTo(-this.radius/1.4*randomArr[16], this.radius/1.4*randomArr[0]); //corner
     //bottom left to bottom middle
-    ctx.lineTo(this.posX - this.radius/2, this.posY + this.radius);
-    ctx.lineTo(this.posX, this.posY + this.radius*randomArr[7]); //original middle
-
+    ctx.lineTo(-this.radius/2, this.radius);
+    ctx.lineTo(0, this.radius*randomArr[0]); //original middle
     ctx.closePath();
     ctx.fill();
+    
+    ctx.restore();
   }
   //generates array of 12 integers to scale by range between 1.2 to 0.8
   var randomGen = function() {
     var randomArr = [];
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 17; i++) {
       var diceRoll = Math.random();
       if (diceRoll > 0.7) {
         randomArr.push(1.2);
